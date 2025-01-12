@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+   <!-- Define a new view to extend the res.partner form view -->
+   <record id="view_of_crm_connect_lead" model="ir.ui.view">
+       <field name="name">crm.connect</field>
+       <field name="model">crm.connect</field>
+      <field name="priority" eval="8"/>
+       <field name="arch" type="xml">
+           <form string="Connect">
+               <group>
+                   <field name="lead_quality"/>
+                   <field name="expected_joining_date" invisible="lead_quality not in ['warm','hot']"/>
+
+               </group>
+               <group>
+                   <field name="assign_to_crash_user_id" invisible="lead_quality != 'crash_lead'"/>
+                   <field invisible="lead_quality != 'bad_lead'" name="remarks"/>
+               </group>
+               <footer>
+                   <button name="act_save" string="Save" type="object" class="oe_highlight"/>
+                   <button name="cancel" string="Cancel" special="cancel"/>
+               </footer>
+           </form>
+       </field>
+   </record>
+</odoo>

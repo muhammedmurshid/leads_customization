@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.module.category" id="group_lead_custom_users">
+        <field name="name">Lead Users</field>
+        <field name="sequence">21</field>
+        <field name="visible" eval="0"/>
+    </record>
+    <record id="group_lead_tele_callers" model="res.groups">
+        <field name="name">Tele Callers</field>
+        <field name="category_id" ref="leads_customization.group_lead_custom_users"/>
+    </record>
+    <record id="group_lead_users" model="res.groups">
+        <field name="name">Admission Officers</field>
+        <field name="category_id" ref="leads_customization.group_lead_custom_users"/>
+    </record>
+</odoo>
