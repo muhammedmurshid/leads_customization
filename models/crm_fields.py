@@ -24,7 +24,7 @@ class CrmFieldsCustomization(models.Model):
         [('indian', 'Indian'), ('international', 'International'), ('crash', 'Crash'), ('repeaters', 'Repeaters'),
          ('nil', 'Nil')],
         string='Course Type')
-    branch_id = fields.Many2one('logic.branches', string="Branch")
+    # branch_id = fields.Many2one('logic.branches', string="Branch")
     department = fields.Selection([('crash_course', 'Crash Course'), ('regular_course', 'Regular Course'), ('nil', 'Nil')], string="Department")
     course_id = fields.Many2one('op.course', string="Course")
     batch_id = fields.Many2one('logic.batches', string="Batch")
