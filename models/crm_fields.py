@@ -139,13 +139,13 @@ class CrmFieldsCustomization(models.Model):
                     if len(record.updated_remarks) < 140:
                         raise ValidationError("Updated Remarks must be at least 140 characters long.")
 
-    @api.constrains('course_id', 'branch_id', 'batch_id', 'lead_quality')
+    @api.constrains('course_id', 'batch_id', 'lead_quality')
     def _check_updated_course_details(self):
         for record in self:
             if record.lead_quality:
                 if record.lead_quality in ['waiting_for_admission', 'admission']:
-                    if not record.course_id or not record.branch_id or not record.batch_id:
-                        raise ValidationError("Please fill in the required fields: Course, Branch, and Batch.")
+                    if not record.course_id or not record.batch_id:
+                        raise ValidationError("Please fill in the required fields: Course, and Batch.")
 
     @api.depends('lead_quality')
     def _compute_update_date_time(self):
