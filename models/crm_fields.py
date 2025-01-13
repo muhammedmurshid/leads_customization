@@ -83,20 +83,21 @@ class CrmFieldsCustomization(models.Model):
 
         # Logic for outbound and inbound leads
         for lead in lead_objects:
-            if lead.souce_id:
-                if lead.source_id.source == 'outbound_source':
-                    # Assign to tele-callers in FIFO order
-                    tele_caller_list = tele_callers.sorted(key=lambda tc: tc.create_date)
-                    tele_caller_count = len(tele_caller_list)
-                    tele_caller_id = tele_caller_list[lead.id % tele_caller_count].id
-                    lead.write({'assign_to_tele_caller_id': tele_caller_id})
+            if lead.source_id.source == 'outbound_source':
+                # Assign to tele-callers in FIFO order
+                tele_caller_list = tele_callers.sorted(key=lambda tc: tc.create_date)
+                tele_caller_count = len(tele_caller_list)
+                tele_caller_id = tele_caller_list[lead.id % tele_caller_count].id
+                lead.write({'assign_to_tele_caller_id': tele_caller_id})
 
-                elif lead.source_id.source == 'inbound_source':
-                    # Assign to lead users in FIFO order
-                    lead_user_list = lead_users.sorted(key=lambda user: user.create_date)
-                    lead_user_count = len(lead_user_list)
-                    lead_user_id = lead_user_list[lead.id % lead_user_count].id
-                    lead.write({'user_id': lead_user_id})
+            elif lead.source_id.source == 'inbound_source':
+                # Assign to lead users in FIFO order
+                lead_user_list = lead_users.sorted(key=lambda user: user.create_date)
+                lead_user_count = len(lead_user_list)
+                lead_user_id = lead_user_list[lead.id % lead_user_count].id
+                lead.write({'user_id': lead_user_id})
+
+
 
     @api.model
     def create(self, values):
